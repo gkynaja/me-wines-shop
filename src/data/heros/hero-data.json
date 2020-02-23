@@ -1,0 +1,10 @@
+{
+  "heros": [
+    {
+      "featuredImage": "hero-1.jpg"
+    },
+    {
+      "featuredImage": "hero-2.jpg"
+    }
+  ]
+}
