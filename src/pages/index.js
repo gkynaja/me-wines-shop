@@ -16,47 +16,47 @@ const IndexPage = ({ data }) => {
       <Hero />
 
       <Products
-        products={data.products}
+        products={null}
       />
       <Events
-        events={data.events}
+        events={null}
       />
 
     </Layout>
   )
 }
 
-export const query = graphql`
-  query {
-    products: allFile(filter: {sourceInstanceName: {eq: "products"}}) {
-      edges {
-        node {
-          childMarkdownRemark {
-            id
-            frontmatter {
-              name
-              price
-              featuredImage
-            }
-          }
-        }
-      }
-    }
-    events: allFile(filter: {sourceInstanceName: {eq: "events"}}) {
-      edges {
-        node {
-          childMarkdownRemark {
-            id
-            frontmatter {
-              title
-              place
-              featuredImage
-            }
-          }
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query {
+//     products: allFile(filter: {sourceInstanceName: {eq: "products"}}) {
+//       edges {
+//         node {
+//           childMarkdownRemark {
+//             id
+//             frontmatter {
+//               name
+//               price
+
+//             }
+//           }
+//         }
+//       }
+//     }
+//     events: allFile(filter: {sourceInstanceName: {eq: "events"}}) {
+//       edges {
+//         node {
+//           childMarkdownRemark {
+//             id
+//             frontmatter {
+//               title
+//               place
+
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 export default IndexPage

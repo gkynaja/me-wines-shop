@@ -49,27 +49,27 @@ const Overlay = styled.div`
   background: linear-gradient(18deg, rgba(0,0,0,0.8085609243697479) 0%, rgba(0,0,0,0) 45%, rgba(0,212,255,0) 100%);;
 `
 const Events = props => {
-  const data = useStaticQuery(graphql`
-    query EventsQuery {
-      allFile(filter: {sourceInstanceName: {eq: "events"}}) {
-        edges {
-          node {
-            sourceInstanceName
-            childMarkdownRemark {
-              fields {
-                slug
-              }
-              frontmatter {
-                title
-                place
-                featuredImage
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
+  // const data = useStaticQuery(graphql`
+  //   query EventsQuery {
+  //     allFile(filter: {sourceInstanceName: {eq: "events"}}) {
+  //       edges {
+  //         node {
+  //           sourceInstanceName
+  //           childMarkdownRemark {
+  //             fields {
+  //               slug
+  //             }
+  //             frontmatter {
+  //               title
+  //               place
+
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
 
   return (
     <Content>
@@ -80,14 +80,14 @@ const Events = props => {
       <Container>
         <EventsWrapper>
           {
-            data.allFile.edges.map(({ node }, idx) => {
-              return (
-                <EventCard key={node.childMarkdownRemark.id} src={require(`../images/${node.childMarkdownRemark.frontmatter.featuredImage}`)}>
-                  <Overlay />
-                  <Link to={`/${node.sourceInstanceName}/${node.childMarkdownRemark.fields.slug}`}><h2>{node.childMarkdownRemark.frontmatter.title}</h2></Link>
-                </EventCard>
-              )
-            })
+            // data.allFile.edges.map(({ node }, idx) => {
+            //   return (
+            //     <EventCard key={node.childMarkdownRemark.id} /*src={require(`../images/${node.childMarkdownRemark.frontmatter.featuredImage}`)}*/>
+            //       <Overlay />
+            //       <Link to={`/${node.sourceInstanceName}/${node.childMarkdownRemark.fields.slug}`}><h2>{node.childMarkdownRemark.frontmatter.title}</h2></Link>
+            //     </EventCard>
+            //   )
+            // })
           }
         </EventsWrapper>
       </Container>

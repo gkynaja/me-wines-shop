@@ -24,22 +24,15 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `products`,
-        path: `${__dirname}/src/data/products`,
+        name: `product`,
+        path: `${__dirname}/src/collections/product`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `events`,
-        path: `${__dirname}/src/data/events`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `heros`,
-        path: `${__dirname}/src/data/heros`,
+        name: `event`,
+        path: `${__dirname}/src/collections/event`,
       },
     },
     `gatsby-transformer-remark`,

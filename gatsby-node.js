@@ -1,47 +1,36 @@
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
+const { collections } = require('./src/config/collections-config.json')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: 'data' })
-    console.log(slug)
+    const collection = getNode(node.parent).sourceInstanceName
+    const slug = createFilePath({ node, getNode, basePath: 'pages' })
+    createNodeField({
+      node,
+      name: `collection`,
+      value: collection,
+    })
     createNodeField({
       node,
       name: `slug`,
       value: slug,
     })
+
   }
 }
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const productsResult = await graphql(`
-    query {
-      allFile(filter: {sourceInstanceName: {eq: "products"}}) {
+  const { data } = await graphql(`
+    query AllMarkdownQuery {
+      allMarkdownRemark {
         edges {
           node {
-            sourceInstanceName
-            childMarkdownRemark {
-              fields {
-                slug
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
-  const eventsResult = await graphql(`
-    query {
-      allFile(filter: {sourceInstanceName: {eq: "events"}}) {
-        edges {
-          node {
-            sourceInstanceName
-            childMarkdownRemark {
-              fields {
-                slug
-              }
+            fields {
+              collection
+              slug
             }
           }
         }
@@ -49,22 +38,26 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  productsResult.data.allFile.edges.forEach(({ node }) => {
-    createPage({
-      path: `${node.sourceInstanceName}${node.childMarkdownRemark.fields.slug}`,
-      component: path.resolve('./src/templates/product.js'),
-      context: {
-        slug: node.childMarkdownRemark.fields.slug
-      },
+  collections.forEach(({ name }) => {
+    const filterEdges = data.allMarkdownRemark.edges.filter(({ node }) => node.fields.collection === name)
+
+    // Create post pages
+    filterEdges.forEach(({ node }) => {
+      const { slug, collection } = node.fields
+      createPage({
+        path: `/${collection}${slug}`,
+        component: path.resolve(`./src/templates/${name}.js`),
+        context: {
+          collection,
+          slug
+        }
+      })
     })
-  })
-  eventsResult.data.allFile.edges.forEach(({ node }) => {
+
+    // Create list page
     createPage({
-      path: `${node.sourceInstanceName}${node.childMarkdownRemark.fields.slug}`,
-      component: path.resolve('./src/templates/product.js'),
-      context: {
-        slug: node.childMarkdownRemark.fields.slug
-      },
+      path: `/${name}s`,
+      component: path.resolve(`./src/templates/${name}s.js`)
     })
   })
 }

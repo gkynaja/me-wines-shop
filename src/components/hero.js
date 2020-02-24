@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import data from '../data/heros/hero-data.json'
 
 const SliderWrapper = styled.div`
   position: relative;
@@ -41,7 +40,7 @@ const Page = styled.div`
 
 const Hero = () => {
   const [page, setPage] = useState(1)
-
+  const data = [] //temp
   useEffect(() => {
     const id = setInterval(() => {
       if (page === 2) {

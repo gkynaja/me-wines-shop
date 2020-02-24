@@ -43,27 +43,9 @@ const Header = styled.div`
 `
 
 const Products = props => {
-  const data = useStaticQuery(graphql`
-    query ProductsQuery {
-      allFile(filter: {sourceInstanceName: {eq: "products"}}) {
-        edges {
-          node {
-            sourceInstanceName
-            childMarkdownRemark {
-              fields {
-                slug
-              }
-              frontmatter {
-                name
-                price
-                featuredImage
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
+  // const data = useStaticQuery(graphql`
+
+  // `)
 
   return (
     <Content>
@@ -74,20 +56,20 @@ const Products = props => {
         </Header>
         <ProductsWrapper>
           {
-            data.allFile.edges.map(({ node }, idx) => {
-              console.log(node.childMarkdownRemark.frontmatter.featuredImage)
-              return (
-                <ProductCard key={node.childMarkdownRemark.id}>
-                  <ProductImage>
-                    <img src={require(`../images/${node.childMarkdownRemark.frontmatter.featuredImage}`)} />
-                  </ProductImage>
-                  <ProductContent>
-                    <Link to={`/${node.sourceInstanceName}/${node.childMarkdownRemark.fields.slug}`}><h4>{node.childMarkdownRemark.frontmatter.name}</h4></Link>
-                    <p>{node.childMarkdownRemark.frontmatter.price} THB</p>
-                  </ProductContent>
-                </ProductCard>
-              )
-            })
+            // data.allFile.edges.map(({ node }, idx) => {
+
+            //   return (
+            //     <ProductCard key={/*node.childMarkdownRemark.id*/null}>
+            //       <ProductImage>
+            //         <img /*src={require(`../images/${node.childMarkdownRemark.frontmatter.featuredImage}`)}*/ />
+            //       </ProductImage>
+            //       <ProductContent>
+            //         {/* <Link to={`/${node.sourceInstanceName}/${node.childMarkdownRemark.fields.slug}`}><h4>{node.childMarkdownRemark.frontmatter.name}</h4></Link>
+            //         <p>{node.childMarkdownRemark.frontmatter.price} THB</p> */}
+            //       </ProductContent>
+            //     </ProductCard>
+            //   )
+            // })
           }
         </ProductsWrapper>
       </Container>
