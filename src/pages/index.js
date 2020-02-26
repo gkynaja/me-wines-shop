@@ -3,8 +3,6 @@ import { graphql } from 'gatsby'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Hero from "../components/hero"
-import Products from '../components/products'
-import Events from '../components/events'
 
 
 const IndexPage = ({ data }) => {
@@ -15,12 +13,7 @@ const IndexPage = ({ data }) => {
 
       <Hero />
 
-      <Products
-        products={null}
-      />
-      <Events
-        events={null}
-      />
+
 
     </Layout>
   )
