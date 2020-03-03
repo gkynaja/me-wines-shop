@@ -1,0 +1,65 @@
+.cheer-left {
+  animation: cheer-left 2s ease-in-out infinite;
+}
+
+@keyframes cheer-left {
+  from,
+  to {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(15px, 15px);
+  }
+}
+
+.cheer-right {
+  animation: cheer-right 2s ease-in-out infinite;
+}
+
+@keyframes cheer-right {
+  from,
+  to {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(-5px, 10px);
+  }
+}
+
+@keyframes disco-red {
+  0% {
+    fill: #feb300;
+    opacity: 0.1;
+  }
+
+  50% {
+    fill: #ff5e6c;
+    opacity: 1;
+  }
+  100% {
+    fill: #feb300;
+    opacity: 0.1;
+  }
+}
+@keyframes disco-yellow {
+  0% {
+    fill: #feb300;
+    opacity: 0.1;
+  }
+
+  50% {
+    fill: #feb300;
+    opacity: 1;
+  }
+  100% {
+    fill: #feb300;
+    opacity: 0.1;
+  }
+}
+
+.disco--red {
+  animation: disco-red 3s linear infinite;
+}
+.disco--yellow {
+  animation: disco-yellow 3s 1s linear infinite;
+}

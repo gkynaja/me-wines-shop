@@ -1,71 +1,50 @@
 import React from 'react'
 import styled from 'styled-components'
-import Icon from '../images/logo.jpg'
+import Logo from '../images/logo.png'
+import Text from '../components/typography/text'
 
-const FooterWrapper = styled.div`
+const Section = styled.footer`
   width: 100%;
   padding: 5rem 0;
-  color: white;
-  background-color: #212121;
+  background-color: #fffdf7;
 `
-const FooterContent = styled.div`
-  max-width: 50%;
-  margin: 0 auto;
+const Inner = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
-const Logo = styled.div`
-  margin-bottom: 2rem;
-  text-align: center;
-  img {
-    width: 8rem;
-    border-radius: 50%;
-  }
+const FooterLayoutGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
 `
-const Address = styled.div`
-  overflow: hidden;
-  line-height: 33px;
-`
-const AddressLeft = styled.div`
-  float: left;
-  width: 48%;
+const FooterAddress = styled.div`
   text-align: right;
 `
-const AddressRight = styled.div`
-  float: right;
-  width: 48%;
+const FooterContact = styled.div`
   text-align: left;
-`
-const Social = styled.div``
-
-const CopyRight = styled.div`
-  padding: 3rem 0;
-  text-align: center;
-  color: white;
-  background-color: black;
 `
 
 const Footer = () => {
   return (
-    <>
-      <FooterWrapper>
-        <FooterContent>
-          <Logo><img src={Icon} alt="logo" /></Logo>
-          <Address>
-            <AddressLeft>
-              12 Saladaeng Road, <br />
-              Silom, Bangrak, <br />
-              Bangkok Thailand 10500
-            </AddressLeft>
-            <AddressRight>
-              Phone: 080-989-4154
-            </AddressRight>
-          </Address>
-          <Social></Social>
-        </FooterContent>
-      </FooterWrapper>
-      <CopyRight>
-        Me Wines © 2020 All Rights Reserved
-    </CopyRight>
-    </>
+    <Section>
+      <Inner>
+        <div>
+          <img src={Logo} width="150" />
+        </div>
+        <FooterLayoutGrid>
+          <FooterAddress>
+            <Text>12 Saladaeng Rd, Silom,</Text>
+            <Text noMargin>Bang Rak, Bangkok 10500</Text>
+          </FooterAddress>
+          <FooterContact>
+            <Text>Tel 090 989 4154</Text>
+            <Text noMargin>Mon-Sat 11AM–10PM</Text>
+          </FooterContact>
+        </FooterLayoutGrid>
+      </Inner>
+    </Section>
   )
 }
 

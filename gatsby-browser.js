@@ -1,4 +1,5 @@
 require('typeface-roboto')
 require('typeface-laila')
+require('typeface-love-ya-like-a-sister')
 require('normalize.css')
 require('./src/styles/global.css')

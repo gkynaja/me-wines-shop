@@ -12082,6 +12082,11 @@ typeface-laila@^0.0.72:
   resolved "https://registry.yarnpkg.com/typeface-laila/-/typeface-laila-0.0.72.tgz#95d056e24584282ed50adeb173758a7eb9cfd71b"
   integrity sha512-fzA2A2CCvf/p+qGoyOjbzdjNc4A8AhhcVpXvUXWT5dDI2Q3qPtnWKmAVj6sykWOIqgqlQ6DhxezgtZJZjbiPsA==
 
+typeface-love-ya-like-a-sister@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/typeface-love-ya-like-a-sister/-/typeface-love-ya-like-a-sister-0.0.72.tgz#c137ce4446c878bbfd7a5da5248d7b8b84308927"
+  integrity sha512-0+q0kzdRafb4ozdHyEsFH4Kb3TSnRGDzyJVm/+RpEWdSH6W3vsuewqHuP6S2zNYTfhftEryWXW3SZ47Mn9b63A==
+
 typeface-roboto@^0.0.75:
   version "0.0.75"
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.75.tgz#98d5ba35ec234bbc7172374c8297277099cc712b"
