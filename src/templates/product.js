@@ -16,7 +16,9 @@ export default Product
 
 export const query = graphql`
   query($slug: String!, $collection: String!) {
-    product: markdownRemark(fields: {slug: {eq: $slug}, collection: {eq: $collection}}) {
+    product: markdownRemark(
+      fields: { slug: { eq: $slug }, collection: { eq: $collection } }
+    ) {
       fields {
         collection
         slug
@@ -25,7 +27,7 @@ export const query = graphql`
         name
         featuredImage {
           childImageSharp {
-            fluid(maxWidth: 1200) {
+            fluid(maxHeight: 1200) {
               ...GatsbyImageSharpFluid
             }
           }

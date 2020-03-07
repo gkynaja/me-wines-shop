@@ -2,8 +2,8 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 const colorPalette = {
-  primary: '',
-  secondary: '',
+  primary: 'black',
+  secondary: 'white',
   accent: '#ff5e6c',
 }
 

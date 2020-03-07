@@ -1,43 +1,69 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import SvgHeroParty from '../components/animate-svg/hero-party'
 import Container from '../components/container'
 import Text from '../components/typography/text'
 import Button from '../components/button'
 
-import Spot03 from '../images/spots-03.png'
 import Spot06 from '../images/spots-06.png'
+import HeroRight from '../images/hero-1.png'
+import HeroLeft from '../images/hero-2.png'
 
+const SlideFromLeft = keyframes`
+  from {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`
+const SlideFromBottom = keyframes`
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`
 const HeroSection = styled.section`
-  display: table;
-  width: 100%;
-  height: 100vh;
+  height: 700px;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffcb96;
 `
 const Inner = styled.div`
   display: table-cell;
   vertical-align: middle;
 `
-const HeroLayoutGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`
 const Relative = styled.div`
   position: relative;
 `
-const HeaderSpot = styled.img`
+const Title = styled.div`
   position: absolute;
-  top: -10rem;
-  right: 0;
-  z-index: -1;
-
+  top: 50%;
+  transform: translateY(-50%);
   width: 100%;
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+
+  animation: ${SlideFromBottom} 0.3s 1s ease-out forwards;
 `
-const Description = styled.div`
-  max-width: 25em;
+const HeroL = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 2rem;
+  width: 45%;
+  height: 700px;
+  float: left;
 `
 const ProductSection = styled.section`
   display: table;
@@ -95,6 +121,43 @@ const TestimonialLayoutGrid = styled.div`
   justify-items: center;
   align-items: center;
 `
+const Frame = styled.div`
+  width: ${props => props.width || 'auto'};
+  height: ${props => props.height || 'auto'};
+  float: ${props => props.float || 'unset'};
+  overflow: ${props => props.overflow || 'unset'};
+`
+const ImageLeft = styled.img`
+  width: 500px;
+
+  animation: ${SlideFromLeft} 1s ease-out forwards;
+`
+const ImageRight = styled.img`
+  min-height: 100%;
+  min-width: 1200px;
+  width: 100%;
+  height: auto;
+
+  animation: ${SlideFromLeft} 1s ease-out forwards;
+`
+const ImageWrapper = styled.div`
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  max-height: 700px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.2;
+  }
+`
 
 const IndexPage = ({ data }) => {
   console.log(data)
@@ -104,39 +167,34 @@ const IndexPage = ({ data }) => {
 
       {/* Hero */}
       <HeroSection>
-        <Inner>
-          <Container>
-            <HeroLayoutGrid>
-              <Relative>
-                <div>
-                  <HeaderSpot src={Spot03} />
-                </div>
-                <div>
-                  <Text type="h1" fontType="display" noMargin>
-                    Me Wines
-                  </Text>
-                  <Text type="h1" fontType="display" noMargin>
-                    Shop
-                  </Text>
-                </div>
-                <Description>
-                  <Text>Wine shop & bar in Silom,</Text>
-                  <Text noMargin>
-                    You can find best wines from all over the world.
-                  </Text>
-                  <Text noMargin>
-                    Join us for a glass of wine & some bites.
-                  </Text>
-                  <Text noMargin>Or come by and stock your cellar.</Text>
-                </Description>
-                <Link to="/products">
-                  <Button mt="lg">Our Wines</Button>
-                </Link>
-              </Relative>
-              <SvgHeroParty />
-            </HeroLayoutGrid>
-          </Container>
-        </Inner>
+        <div>
+          <Title>
+            <Text type="h1" weight="bold" color="secondary">
+              Me Wines Shop
+            </Text>
+          </Title>
+          <div>
+            <HeroL>
+              <Frame width="100%">
+                <Frame
+                  width="400px"
+                  height="400px"
+                  float="right"
+                  overflow="hidden"
+                >
+                  <ImageWrapper>
+                    <ImageLeft src={HeroLeft} />
+                  </ImageWrapper>
+                </Frame>
+              </Frame>
+            </HeroL>
+            <Frame width="55%" float="left" overflow="hidden">
+              <ImageWrapper>
+                <ImageRight src={HeroRight} />
+              </ImageWrapper>
+            </Frame>
+          </div>
+        </div>
       </HeroSection>
 
       {/* Product */}
