@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import styled, { keyframes } from 'styled-components'
@@ -12,58 +12,14 @@ import Spot06 from '../images/spots-06.png'
 import HeroRight from '../images/hero-1.png'
 import HeroLeft from '../images/hero-2.png'
 
-const SlideFromLeft = keyframes`
-  from {
-    transform: translateX(-40px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-`
-const SlideFromBottom = keyframes`
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-`
-const HeroSection = styled.section`
-  height: 700px;
-  overflow: hidden;
-  position: relative;
-  background-color: #ffcb96;
-`
+import Hero from '../styles/styled-components/hero'
+
 const Inner = styled.div`
   display: table-cell;
   vertical-align: middle;
 `
 const Relative = styled.div`
   position: relative;
-`
-const Title = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  text-align: center;
-  z-index: 1;
-  opacity: 0;
-
-  animation: ${SlideFromBottom} 0.3s 1s ease-out forwards;
-`
-const HeroL = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-right: 2rem;
-  width: 45%;
-  height: 700px;
-  float: left;
 `
 const ProductSection = styled.section`
   display: table;
@@ -121,84 +77,54 @@ const TestimonialLayoutGrid = styled.div`
   justify-items: center;
   align-items: center;
 `
-const Frame = styled.div`
-  width: ${props => props.width || 'auto'};
-  height: ${props => props.height || 'auto'};
-  float: ${props => props.float || 'unset'};
-  overflow: ${props => props.overflow || 'unset'};
-`
-const ImageLeft = styled.img`
-  width: 500px;
-
-  animation: ${SlideFromLeft} 1s ease-out forwards;
-`
-const ImageRight = styled.img`
-  min-height: 100%;
-  min-width: 1200px;
-  width: 100%;
-  height: auto;
-
-  animation: ${SlideFromLeft} 1s ease-out forwards;
-`
-const ImageWrapper = styled.div`
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-  max-height: 700px;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.2;
-  }
-`
 
 const IndexPage = ({ data }) => {
-  console.log(data)
+  const [timing, setTiming] = useState({})
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setTiming({ animated: true })
+    }, 500)
+
+    return () => {
+      clearTimeout(id)
+    }
+  }, [])
+
   return (
     <Layout>
       <SEO title="Home" />
 
       {/* Hero */}
-      <HeroSection>
-        <div>
-          <Title>
-            <Text type="h1" weight="bold" color="secondary">
-              Me Wines Shop
-            </Text>
-          </Title>
-          <div>
-            <HeroL>
-              <Frame width="100%">
-                <Frame
-                  width="400px"
-                  height="400px"
-                  float="right"
-                  overflow="hidden"
-                >
-                  <ImageWrapper>
-                    <ImageLeft src={HeroLeft} />
-                  </ImageWrapper>
-                </Frame>
-              </Frame>
-            </HeroL>
-            <Frame width="55%" float="left" overflow="hidden">
-              <ImageWrapper>
-                <ImageRight src={HeroRight} />
-              </ImageWrapper>
-            </Frame>
-          </div>
-        </div>
-      </HeroSection>
+      <Hero>
+        <Hero.Title {...timing}>
+          <Text type="h1" weight="bold" color="secondary">
+            Me Wines Shop
+          </Text>
+        </Hero.Title>
+
+        <Hero.Left>
+          <Hero.AlignBox>
+            <Hero.ImageWrapper {...timing}>
+              <Hero.Left.Image src={HeroLeft} />
+            </Hero.ImageWrapper>
+            <a href="#anchor">
+              <Hero.Button {...timing}>
+                <span>Our Wines</span>
+              </Hero.Button>
+            </a>
+          </Hero.AlignBox>
+        </Hero.Left>
+
+        <Hero.Right>
+          <Hero.ImageWrapper {...timing}>
+            <Hero.Right.Image src={HeroRight} {...timing} />
+          </Hero.ImageWrapper>
+        </Hero.Right>
+      </Hero>
 
       {/* Product */}
-      <ProductSection>
+      <ProductSection id="anchor">
         <Inner>
           <Container>
             <ProductLayout>
