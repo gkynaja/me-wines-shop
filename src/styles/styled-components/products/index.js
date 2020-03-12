@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { space } from '../config/space'
+import { breakpoint } from '../config/breakpoint'
 import { fullScreenHeight, flexCenter } from '../common'
 
 const Products = styled.div``
@@ -37,6 +38,7 @@ Products.Image = styled.img`
 Products.Content = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
+  padding: 10rem 0;
 `
 Products.Filter = styled.div`
   padding: 3rem 1rem 0 1rem;
@@ -98,9 +100,15 @@ Products.Filter.Option = styled.ul`
 `
 Products.List = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(273.33px, 1fr));
 
   background-color: white;
+
+  object-fit: cover;
+
+  @media (max-width: ${breakpoint.tablet}px) {
+    /* grid-template-columns: repeat(2, 255px); */
+  }
 `
 Products.List.Wrapper = styled.div`
   height: 400px;
