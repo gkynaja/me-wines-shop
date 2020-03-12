@@ -40,67 +40,11 @@ Products.Content = styled.div`
   grid-template-columns: 300px 1fr;
   padding: 10rem 0;
 `
-Products.Filter = styled.div`
-  padding: 3rem 1rem 0 1rem;
 
-  background-color: white;
-
-  h4 {
-    margin-bottom: 1rem;
-  }
-`
-Products.Filter.Check = styled.input.attrs({ type: 'checkbox' })`
-  display: none;
-`
-Products.Filter.Group = styled.div`
-  padding-top: 1rem;
-
-  label {
-    position: relative;
-    display: block;
-    width: 100%;
-
-    color: lightgrey;
-
-    cursor: pointer;
-
-    transition: 0.5s;
-  }
-
-  label::after {
-    content: '+';
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-  ${Products.Filter.Check}:checked ~ label {
-    color: #333;
-    transition: 0.1s;
-  }
-  ${Products.Filter.Check}:checked ~ label::after {
-    content: '-';
-  }
-`
-Products.Filter.Option = styled.ul`
-  display: none;
-
-  transition: 0.7s;
-
-  ${Products.Filter.Check}:checked ~ & {
-    display: block;
-  }
-
-  li {
-    padding: 0.2rem 0;
-  }
-  li:first-child {
-    margin-top: 0.5rem;
-  }
-`
 Products.List = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(273.33px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: repeat(auto-fit, 400px);
 
   background-color: white;
 
@@ -116,7 +60,9 @@ Products.List.Wrapper = styled.div`
 Products.Card = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-self: center;
+  padding: 1rem;
 
   background-color: white;
 
@@ -131,7 +77,7 @@ Products.Card = styled.div`
 `
 
 Products.Card.Content = styled.div`
-  padding: ${space.L}px;
+  width: 100%;
   text-align: center;
   text-transform: uppercase;
 

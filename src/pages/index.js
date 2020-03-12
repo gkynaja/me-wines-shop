@@ -7,6 +7,7 @@ import SEO from '../components/seo'
 import Container from '../components/container'
 import Text from '../components/typography/text'
 import Button from '../components/button'
+import Box from '../components/box'
 
 import Spot06 from '../images/spots-06.png'
 import HeroRight from '../images/hero-1.png'
