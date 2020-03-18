@@ -7,14 +7,12 @@ const Products = styled.div``
 
 Products.Hero = styled.div`
   position: relative;
-
   display: grid;
   grid-template-columns: 45% 55%;
-
+  height: 100vh;
+  max-height: 500px;
   overflow: hidden;
   background-color: coral;
-
-  ${fullScreenHeight};
 `
 
 Products.Title = styled.div`
@@ -45,10 +43,8 @@ Products.List = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-template-rows: repeat(auto-fit, 400px);
-
+  padding: 4.5rem 1rem 0 1rem;
   background-color: white;
-
-  object-fit: cover;
 
   @media (max-width: ${breakpoint.tablet}px) {
     /* grid-template-columns: repeat(2, 255px); */

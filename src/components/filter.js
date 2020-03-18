@@ -1,6 +1,7 @@
 import React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
-import { H4, H5 } from '../styles/styled-components/typography'
+import { H4, H5, P } from '../styles/styled-components/typography'
 
 const Filter = styled.div`
   padding: 3rem 1rem 0 1rem;
@@ -11,13 +12,15 @@ const Filter = styled.div`
     margin-bottom: 1rem;
   }
 `
-Filter.Check = styled.input.attrs({ type: 'checkbox' })`
+Filter.GroupTrigger = styled.input.attrs({
+  type: 'checkbox',
+})`
   display: none;
 `
 Filter.Group = styled.div`
   padding-top: 1rem;
 
-  label {
+  & > label {
     position: relative;
     display: block;
     width: 100%;
@@ -29,18 +32,18 @@ Filter.Group = styled.div`
     transition: 0.5s;
   }
 
-  label::after {
+  & > label::after {
     content: '+';
     position: absolute;
     top: 0;
     right: 0;
   }
 
-  ${Filter.Check}:checked ~ label {
+  ${Filter.GroupTrigger}:checked ~ label {
     color: #333;
     transition: 0.1s;
   }
-  ${Filter.Check}:checked ~ label::after {
+  ${Filter.GroupTrigger}:checked ~ label::after {
     content: '-';
   }
 `
@@ -49,60 +52,94 @@ Filter.Option = styled.ul`
 
   transition: 0.7s;
 
-  ${Filter.Check}:checked ~ & {
+  ${Filter.GroupTrigger}:checked ~ & {
     display: block;
   }
 
   li {
-    padding: 0.2rem 0;
+    padding: 0.5rem 0 0.5rem 0;
+    border-bottom: 1px solid #eee;
   }
   li:first-child {
     margin-top: 0.5rem;
   }
+  input {
+    display: none;
+  }
+  label {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+  }
+  label::before {
+    content: '+';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 1rem;
+    color: #bbb;
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    vertical-align: top;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  input:checked ~ label::before {
+    content: '-';
+    border: 1px solid #00b8ff;
+    color: white;
+    background-color: #00b8ff;
+  }
 `
 
-const filterConfig = {
-  vintage: {
-    label: 'Vintage',
-    value: ['A', 'B', 'C'],
-  },
-  producer: {
-    label: 'Producer',
-    value: ['A', 'B', 'C'],
-  },
-  country: {
-    label: 'Country',
-    value: ['A', 'B', 'C'],
-  },
-  type: {
-    label: 'Type',
-    value: ['A', 'B', 'C'],
-  },
-  price: {
-    label: 'Price',
-    value: ['A'],
-  },
-}
+const toCapitalize = str =>
+  str.replace(str.substring(0, 1), str.substring(0, 1).toUpperCase())
 
-export default () => {
+export default ({ filterConfig, onApply }) => {
+  const newFilter = { ...filterConfig }
+  const onChange = (group, option) => {
+    return e => {
+      newFilter[group] = newFilter[group].map(v => {
+        if (v.fieldValue === option.fieldValue) {
+          return { ...v, checked: e.target.checked }
+        }
+        return v
+      })
+    }
+  }
+
   return (
     <Filter>
       <H4 tag="h4">Filters</H4>
       {Object.keys(filterConfig).map(k => (
         <Filter.Group>
-          <Filter.Check id={k} />
+          <Filter.GroupTrigger id={k} defaultChecked={true} />
           <H5 tag="label" htmlFor={k}>
-            {filterConfig[k].label}
+            {toCapitalize(k)}
           </H5>
           <Filter.Option>
-            {filterConfig[k].value.map(v => (
+            {filterConfig[k].map(v => (
               <li>
-                <input type="checkbox" /> {v}
+                <input
+                  type="checkbox"
+                  onChange={onChange(k, v)}
+                  id={v.fieldValue}
+                />
+                <P tag="label" htmlFor={v.fieldValue}>{`${toCapitalize(
+                  v.fieldValue
+                )}`}</P>
               </li>
             ))}
           </Filter.Option>
         </Filter.Group>
       ))}
+      <div style={{ padding: '3rem' }} onClick={onApply(newFilter)}>
+        Filter
+      </div>
     </Filter>
   )
 }

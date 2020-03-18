@@ -18,6 +18,11 @@ const typographyStyles = {
     fontWeight: 'bold',
     fontFamily: 'inherit',
   },
+  P: {
+    fontSize: '1rem',
+    fontWeight: 'normal',
+    fontFamily: 'inherit',
+  },
 }
 
 const DynamicComponent = styled.div`
@@ -42,4 +47,10 @@ const H5 = ({ children, tag = 'div', ...props }) => (
     {children}
   </DynamicComponent>
 )
-export { H1, H4, H5 }
+const P = ({ children, tag = 'div', ...props }) => (
+  <DynamicComponent as={`${tag}`} {...typographyStyles['P']} {...props}>
+    {children}
+  </DynamicComponent>
+)
+
+export { H1, H4, H5, P }
