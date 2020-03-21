@@ -1,10 +1,11 @@
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 import { H4, H5, P } from '../styles/styled-components/typography'
 
 const Filter = styled.div`
+  height: 100%;
   padding: 3rem 1rem 0 1rem;
+  overflow: scroll;
 
   background-color: white;
 
@@ -95,6 +96,15 @@ Filter.Option = styled.ul`
     background-color: #00b8ff;
   }
 `
+Filter.Button = styled.button`
+  width: 100%;
+  padding: 1rem;
+  margin: 3rem 0;
+  border: 1px solid #444;
+  color: #444;
+  background-color: transparent;
+  font-weight: bold;
+`
 
 const toCapitalize = str =>
   str.replace(str.substring(0, 1), str.substring(0, 1).toUpperCase())
@@ -137,9 +147,7 @@ export default ({ filterConfig, onApply }) => {
           </Filter.Option>
         </Filter.Group>
       ))}
-      <div style={{ padding: '3rem' }} onClick={onApply(newFilter)}>
-        Filter
-      </div>
+      <Filter.Button onClick={onApply(newFilter)}>Filter</Filter.Button>
     </Filter>
   )
 }

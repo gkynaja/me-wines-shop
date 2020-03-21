@@ -7,13 +7,11 @@ import SEO from '../components/seo'
 import Container from '../components/container'
 import Text from '../components/typography/text'
 import Button from '../components/button'
-import Box from '../components/box'
-
-import Spot06 from '../images/spots-06.png'
 import HeroRight from '../images/hero-1.png'
 import HeroLeft from '../images/hero-2.png'
-
 import Hero from '../styles/styled-components/hero'
+import { breakpoint } from '../styles/styled-components/config/breakpoint'
+import { CustomerChat } from '../components/chat'
 
 const Inner = styled.div`
   display: table-cell;
@@ -27,6 +25,27 @@ const ProductSection = styled.section`
   width: 100%;
   padding: 5rem 0 10rem 0;
   background-color: rgba(255, 253, 247, 0.5);
+
+  h4 {
+    position: relative;
+    display: inline-block;
+  }
+  h4::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: coral;
+    z-index: -1;
+    transform: skewX(10deg) skewY(-3deg);
+    border-radius: 4px;
+  }
+
+  @media (max-width: ${breakpoint.mobile}px) {
+    display: none;
+  }
 `
 const ProductLayout = styled.div`
   text-align: center;
@@ -46,6 +65,27 @@ const PromotionSection = styled.section`
   display: table;
   width: 100%;
   padding: 5rem 0 10rem 0;
+
+  h4 {
+    position: relative;
+    display: inline-block;
+  }
+  h4::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: coral;
+    z-index: -1;
+    transform: skewX(10deg) skewY(-3deg);
+    border-radius: 4px;
+  }
+
+  @media (max-width: ${breakpoint.mobile}px) {
+    display: none;
+  }
 `
 const BlogSection = styled.section`
   display: table;
@@ -53,6 +93,10 @@ const BlogSection = styled.section`
   padding: 5rem 0;
 
   background-color: #fffdf7;
+
+  @media (max-width: ${breakpoint.mobile}px) {
+    display: none;
+  }
 `
 const BlogLayout = styled.div`
   display: grid;
@@ -60,17 +104,15 @@ const BlogLayout = styled.div`
   grid-gap: 3rem;
   align-items: center;
 `
-const BlogSpot = styled.img`
-  position: absolute;
-  top: -20rem;
-  right: -5rem;
 
-  width: 20rem;
-`
 const Testimonial = styled.section`
   display: table;
   width: 100%;
   padding: 5rem 10rem;
+
+  @media (max-width: ${breakpoint.mobile}px) {
+    display: none;
+  }
 `
 const TestimonialLayoutGrid = styled.div`
   display: grid;
@@ -95,7 +137,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-
+      <CustomerChat />
       {/* Hero */}
       <Hero>
         <Hero.Title {...timing}>
@@ -215,7 +257,7 @@ const IndexPage = ({ data }) => {
                 }
               />
               <Relative>
-                <BlogSpot src={Spot06} />
+                {/* <BlogSpot src={Spot06} /> */}
                 <Text type="h1" fontType="display">
                   {data.blog.frontmatter.title}
                 </Text>

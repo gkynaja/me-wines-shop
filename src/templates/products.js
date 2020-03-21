@@ -7,7 +7,8 @@ import Box from '../components/box'
 import Filter from '../components/filter'
 import StyledProducts from '../styles/styled-components/products'
 import { H1, H4, H5 } from '../styles/styled-components/typography'
-import RedWine from '../images/red-wine.jpg'
+import RedWine from '../images/hero-1.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const buildFilterConfig = config => {
   const filterConfig = {}
@@ -48,8 +49,8 @@ const Products = ({ data }) => {
       <StyledProducts>
         <StyledProducts.Hero>
           <StyledProducts.Title>
-            <H1 tag="h1" color="white">
-              Red Wine
+            <H1 tag="h1" color="white" data-text="Our Wines">
+              Our Wines
             </H1>
           </StyledProducts.Title>
           <div></div>
@@ -57,7 +58,21 @@ const Products = ({ data }) => {
         </StyledProducts.Hero>
         <Container>
           <StyledProducts.Content>
-            <Filter filterConfig={filter} onApply={handleOnApplyFilter} />
+            <input type="checkbox" className="hidden" id="trigger-filter" />
+            <StyledProducts.FilterOverlay htmlFor="trigger-filter" />
+            <StyledProducts.Triggerer>
+              <StyledProducts.Triggerer.Filter htmlFor="trigger-filter">
+                <FontAwesomeIcon icon={['fad', 'sliders-h']} />
+                Filter
+              </StyledProducts.Triggerer.Filter>
+              <StyledProducts.Triggerer.Sorting>
+                <FontAwesomeIcon icon={['fad', 'sort-alt']} />
+                Sort
+              </StyledProducts.Triggerer.Sorting>
+            </StyledProducts.Triggerer>
+            <StyledProducts.Filter>
+              <Filter filterConfig={filter} onApply={handleOnApplyFilter} />
+            </StyledProducts.Filter>
             <StyledProducts.List>
               {products.map(({ node }) => (
                 <StyledProducts.List.Wrapper>
@@ -134,6 +149,12 @@ export const query = graphql`
         fieldValue
       }
       country: group(field: frontmatter___country) {
+        fieldValue
+      }
+      producer: group(field: frontmatter___country) {
+        fieldValue
+      }
+      vintage: group(field: frontmatter___country) {
         fieldValue
       }
     }

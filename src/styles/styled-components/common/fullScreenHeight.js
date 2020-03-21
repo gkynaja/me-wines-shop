@@ -2,6 +2,9 @@ import { css } from 'styled-components'
 import { breakpoint } from '../config/breakpoint'
 
 export default css`
-  height: 100vh;
-  max-height: 700px;
+  height: 700px;
+
+  @media (max-width: ${breakpoint.tablet}px) {
+    height: 100vh;
+  }
 `

@@ -2,11 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import Logo from '../images/logo.png'
 import Text from '../components/typography/text'
+import { breakpoint } from '../styles/styled-components/config/breakpoint'
 
 const Section = styled.footer`
   width: 100%;
   padding: 5rem 0;
   background-color: #fffdf7;
+
+  @media (max-width: ${breakpoint.mobile}px) {
+    display: none;
+  }
 `
 const Inner = styled.div`
   display: flex;

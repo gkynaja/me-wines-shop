@@ -1,5 +1,5 @@
 export const breakpoint = {
-  mobile: 424,
-  tablet: 767,
+  mobile: 425,
+  tablet: 768,
   laptop: 1023,
 }

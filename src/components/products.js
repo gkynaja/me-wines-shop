@@ -24,7 +24,9 @@ const Products = ({ products }) => {
         </StyledProducts.Hero>
         <Container>
           <StyledProducts.Content>
-            <Filter />
+            <StyledProducts.Filter>
+              <Filter />
+            </StyledProducts.Filter>
             <StyledProducts.List>
               {products.map(({ node }) => (
                 <StyledProducts.List.Wrapper>

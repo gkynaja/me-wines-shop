@@ -25,6 +25,20 @@ a {
   text-decoration: none;
 }
 
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
 ul {
   list-style: none;
+}
+
+.nav-active {
+  color: coral;
+}
+
+.hidden {
+  display: none;
 }
