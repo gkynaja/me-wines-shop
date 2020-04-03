@@ -68,12 +68,13 @@ Filter.Option = styled.ul`
     display: none;
   }
   label {
+    position: relative;
     display: block;
     width: 100%;
     cursor: pointer;
   }
   label::before {
-    content: '+';
+    content: '';
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -81,7 +82,7 @@ Filter.Option = styled.ul`
     color: #bbb;
     background-color: white;
     border: 1px solid lightgrey;
-    border-radius: 4px;
+    border-radius: 100%;
     vertical-align: top;
     font-weight: bold;
     text-align: center;
@@ -89,11 +90,20 @@ Filter.Option = styled.ul`
     transition: 0.3s;
   }
 
-  input:checked ~ label::before {
-    content: '-';
-    border: 1px solid #00b8ff;
+  /* input:checked ~ label::before {
+    content: '';
     color: white;
-    background-color: #00b8ff;
+    background-color: #777;
+  } */
+  input:checked ~ label::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    border-radius: 100%;
   }
 `
 Filter.Button = styled.button`

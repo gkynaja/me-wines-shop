@@ -1,288 +1,217 @@
 import React, { useState, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
-import styled, { keyframes } from 'styled-components'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import Container from '../components/container'
-import Text from '../components/typography/text'
-import Button from '../components/button'
-import HeroRight from '../images/hero-1.png'
-import HeroLeft from '../images/hero-2.png'
-import Hero from '../styles/styled-components/hero'
-import { breakpoint } from '../styles/styled-components/config/breakpoint'
 import { CustomerChat } from '../components/chat'
-
-const Inner = styled.div`
-  display: table-cell;
-  vertical-align: middle;
-`
-const Relative = styled.div`
-  position: relative;
-`
-const ProductSection = styled.section`
-  display: table;
-  width: 100%;
-  padding: 5rem 0 10rem 0;
-  background-color: rgba(255, 253, 247, 0.5);
-
-  h4 {
-    position: relative;
-    display: inline-block;
-  }
-  h4::before {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: coral;
-    z-index: -1;
-    transform: skewX(10deg) skewY(-3deg);
-    border-radius: 4px;
-  }
-
-  @media (max-width: ${breakpoint.mobile}px) {
-    display: none;
-  }
-`
-const ProductLayout = styled.div`
-  text-align: center;
-  text-transform: uppercase;
-`
-const ProductList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5rem;
-`
-const ProductCard = styled.div`
-  width: 200px;
-`
-const PromotionSection = styled.section`
-  display: table;
-  width: 100%;
-  padding: 5rem 0 10rem 0;
-
-  h4 {
-    position: relative;
-    display: inline-block;
-  }
-  h4::before {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: coral;
-    z-index: -1;
-    transform: skewX(10deg) skewY(-3deg);
-    border-radius: 4px;
-  }
-
-  @media (max-width: ${breakpoint.mobile}px) {
-    display: none;
-  }
-`
-const BlogSection = styled.section`
-  display: table;
-  width: 100%;
-  padding: 5rem 0;
-
-  background-color: #fffdf7;
-
-  @media (max-width: ${breakpoint.mobile}px) {
-    display: none;
-  }
-`
-const BlogLayout = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 3rem;
-  align-items: center;
-`
-
-const Testimonial = styled.section`
-  display: table;
-  width: 100%;
-  padding: 5rem 10rem;
-
-  @media (max-width: ${breakpoint.mobile}px) {
-    display: none;
-  }
-`
-const TestimonialLayoutGrid = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
-  justify-items: center;
-  align-items: center;
-`
+import { Container as GridContainer, Grid } from '../components/grid'
+import { ProductGrid } from '../components/product-grid'
+import { ProductCardWithDetail } from '../components/product-card'
 
 const IndexPage = ({ data }) => {
-  const [timing, setTiming] = useState({})
+  const products = data.allProduct.edges
 
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setTiming({ animated: true })
-    }, 500)
+  const toggleModalActive = () => {
+    const body = document.querySelector('body')
 
-    return () => {
-      clearTimeout(id)
+    if (body.classList) {
+      body.classList.toggle('modal-active')
+    } else {
+      // For IE9
+      let classes = body.className.split(' ')
+      let index = classes.indexOf('modal-active')
+
+      if (index >= 0) {
+        classes.splice(index, 1)
+      } else {
+        classes.push('modal-active')
+      }
+      body.className = classes.join(' ')
     }
-  }, [])
+  }
 
   return (
     <Layout>
       <SEO title="Home" />
       <CustomerChat />
-      {/* Hero */}
-      <Hero>
-        <Hero.Title {...timing}>
-          <Text type="h1" weight="bold" color="secondary">
-            Me Wines Shop
-          </Text>
-        </Hero.Title>
+      <div
+        style={{
+          background: `url(${require('../images/bg.png')}) no-repeat`,
+          backgroundSize: 'contain',
+        }}
+      >
+        <img
+          src={require('../images/wine-hand.png')}
+          style={{ position: 'absolute', top: '4720px', left: 0 }}
+        />
+        <div
+          style={{
+            paddingTop: '340px',
+          }}
+        >
+          {products.slice(0, 5).map((product, index) => {
+            const { frontmatter, excerpt, price } = product.node
+            return (
+              <>
+                <GridContainer>
+                  {index === 0 && (
+                    <Grid col={[1, 2]} row={[1, 3]}>
+                      <ProductGrid.TextHighlight>
+                        <p>Highlight</p>
+                      </ProductGrid.TextHighlight>
+                    </Grid>
+                  )}
+                  <Grid col={index % 2 === 0 ? [3, 4] : [4, 5]} row={[4, 5]}>
+                    <ProductGrid.Detail>
+                      <span>{excerpt}</span>
+                    </ProductGrid.Detail>
+                  </Grid>
+                  <Grid col={index % 2 === 0 ? [2, 3] : [5, 6]} row={[2, 3]}>
+                    <ProductGrid.Vintage>
+                      {frontmatter.vintage}
+                    </ProductGrid.Vintage>
+                  </Grid>
+                  <Grid col={index % 2 === 0 ? [2, 3] : [5, 6]} row={[3, 4]}>
+                    <ProductGrid.Size>{frontmatter.size}</ProductGrid.Size>
+                  </Grid>
+                  <Grid col={index % 2 === 0 ? [5, 6] : [2, 3]} row={[3, 4]}>
+                    <ProductGrid.Alcohol>
+                      <span>Alc</span>
+                      <span>{frontmatter.alcohol}%</span>
+                    </ProductGrid.Alcohol>
+                  </Grid>
+                  <Grid col={index % 2 === 0 ? [5, 6] : [2, 3]} row={[1, 2]}>
+                    <ProductGrid.Image>
+                      <img
+                        src={require(`../images/grid-${
+                          index % 2 === 0 ? 'left' : 'right'
+                        }-1.jpg`)}
+                      />
+                    </ProductGrid.Image>
+                  </Grid>
+                  <Grid col={index % 2 === 0 ? [4, 5] : [3, 4]} row={[4, 5]}>
+                    <ProductGrid.Image>
+                      <img
+                        src={require(`../images/grid-${
+                          index % 2 === 0 ? 'left' : 'right'
+                        }-2.jpg`)}
+                      />
+                    </ProductGrid.Image>
+                  </Grid>
+                  <Grid col={index % 2 === 0 ? [3, 4] : [4, 5]} row={[5, 6]}>
+                    <ProductGrid.Image>
+                      <img
+                        src={require(`../images/grid-${
+                          index % 2 === 0 ? 'left' : 'right'
+                        }-3.jpg`)}
+                      />
+                    </ProductGrid.Image>
+                  </Grid>
+                  <Grid col={index % 2 === 0 ? [4, 5] : [3, 4]} row={[1, 4]}>
+                    <ProductGrid.Title>
+                      <ProductGrid.Title.Number>
+                        {index + 1}
+                      </ProductGrid.Title.Number>
+                      <ProductGrid.Title.Underline />
+                      <ProductGrid.Title.Brand>
+                        {frontmatter.name}
+                      </ProductGrid.Title.Brand>
+                    </ProductGrid.Title>
+                  </Grid>
 
-        <Hero.Left>
-          <Hero.AlignBox>
-            <Hero.ImageWrapper {...timing}>
-              <Hero.Left.Image src={HeroLeft} />
-            </Hero.ImageWrapper>
-            <a href="#anchor">
-              <Hero.Button {...timing}>
-                <span>Our Wines</span>
-              </Hero.Button>
-            </a>
-          </Hero.AlignBox>
-        </Hero.Left>
+                  <Grid col={index % 2 === 0 ? [3, 4] : [4, 5]} row={[1, 4]}>
+                    <label
+                      htmlFor={`trigger-${index}`}
+                      style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        zIndex: 2,
+                      }}
+                      onClick={toggleModalActive}
+                    ></label>
 
-        <Hero.Right>
-          <Hero.ImageWrapper {...timing}>
-            <Hero.Right.Image src={HeroRight} {...timing} />
-          </Hero.ImageWrapper>
-        </Hero.Right>
-      </Hero>
+                    <ProductGrid.BottleImage>
+                      <Img
+                        fluid={frontmatter.featuredImage.childImageSharp.fluid}
+                      />
+                    </ProductGrid.BottleImage>
+                  </Grid>
 
-      {/* Product */}
-      <ProductSection id="anchor">
-        <Inner>
-          <Container>
-            <ProductLayout>
-              <Text type="h4" weight="bold">
-                OUR WINES
-              </Text>
-              <Link to="/products">
-                <Text weight="bold" color="accent">
-                  SEE ALL
-                </Text>
-              </Link>
-              <ProductList>
-                {data.allProduct.edges.map(({ node }) => (
-                  <ProductCard>
-                    <Img
-                      fluid={
-                        node.frontmatter.featuredImage.childImageSharp.fluid
-                      }
+                  <input
+                    type="checkbox"
+                    id={`trigger-${index}`}
+                    style={{ display: 'none' }}
+                  />
+                  <ProductGrid.ProductModal>
+                    <label
+                      htmlFor={`trigger-${index}`}
+                      onClick={toggleModalActive}
+                      style={{
+                        position: 'absolute',
+                        right: '10px',
+                        top: '5px',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        fontSize: '1.5rem',
+                        zIndex: 999,
+                      }}
+                    >
+                      X
+                    </label>
+                    <ProductCardWithDetail
+                      excerpt={excerpt}
+                      price={price}
+                      {...frontmatter}
                     />
-                    <Link to={`/${node.fields.collection}${node.fields.slug}`}>
-                      <Text noMargin weight="bold">
-                        {node.frontmatter.name}
-                      </Text>
-                    </Link>
-                    <Text color="accent" weight="bold">
-                      {Intl.NumberFormat('th-th', {
-                        style: 'currency',
-                        currency: 'THB',
-                      }).format(node.frontmatter.price)}
-                    </Text>
-                  </ProductCard>
-                ))}
-              </ProductList>
-            </ProductLayout>
-          </Container>
-        </Inner>
-      </ProductSection>
-
-      {/* Promotion */}
-      <PromotionSection>
-        <Inner>
-          <Container>
-            <ProductLayout>
-              <Text type="h4" weight="bold">
-                OUR PROMOTION
-              </Text>
-              <Link to="/products">
-                <Text weight="bold" color="accent">
-                  SEE ALL
-                </Text>
-              </Link>
-              <ProductList>
-                {data.allProduct.edges.map(({ node }) => (
-                  <ProductCard>
-                    <Img
-                      fluid={
-                        node.frontmatter.featuredImage.childImageSharp.fluid
-                      }
-                    />
-                    <Link to={`/${node.fields.collection}${node.fields.slug}`}>
-                      <Text noMargin weight="bold">
-                        {node.frontmatter.name}
-                      </Text>
-                    </Link>
-                    <Text color="accent" weight="bold">
-                      {Intl.NumberFormat('th-th', {
-                        style: 'currency',
-                        currency: 'THB',
-                      }).format(node.frontmatter.price)}
-                    </Text>
-                  </ProductCard>
-                ))}
-              </ProductList>
-            </ProductLayout>
-          </Container>
-        </Inner>
-      </PromotionSection>
-
-      {/* Blog */}
-      <BlogSection>
-        <Inner>
-          <Container>
-            <BlogLayout>
-              <Img
-                fluid={
-                  data.blog.frontmatter.featuredImage.childImageSharp.fluid
-                }
-              />
-              <Relative>
-                {/* <BlogSpot src={Spot06} /> */}
-                <Text type="h1" fontType="display">
-                  {data.blog.frontmatter.title}
-                </Text>
-                <Text>{data.blog.excerpt}</Text>
-                <Button mt="xl">Read</Button>
-              </Relative>
-            </BlogLayout>
-          </Container>
-        </Inner>
-      </BlogSection>
-
-      {/* Testimonial */}
-      <Testimonial>
-        <Inner>
-          <Container>
-            <TestimonialLayoutGrid>
-              <Text type="h3" weight="500">
-                “Best wine quality and best of service. Come to join us every
-                friday night”
-              </Text>
-              <div>Anonymous</div>
-            </TestimonialLayoutGrid>
-          </Container>
-        </Inner>
-      </Testimonial>
+                  </ProductGrid.ProductModal>
+                </GridContainer>
+              </>
+            )
+          })}
+        </div>
+        <div style={{ margin: '160px' }}>
+          <GridContainer>
+            <Grid col={[2, 3]} row={[1, 2]}>
+              <ProductGrid.ColorBox color={'#1f1f1f'} />
+            </Grid>
+            <Grid col={[1, 3]} row={[1, 2]}>
+              <ProductGrid.MoreFirstLine>More</ProductGrid.MoreFirstLine>
+            </Grid>
+            <Grid col={[3, 4]} row={[2, 3]}>
+              <ProductGrid.ColorBox color={'#2c2c2c'} />
+            </Grid>
+            <Grid col={[2, 4]} row={[2, 3]}>
+              <ProductGrid.MoreSecondLine>Wine</ProductGrid.MoreSecondLine>
+            </Grid>
+            <Grid col={[4, -1]} row={[3, -1]}>
+              <ProductGrid.MoreProduct>
+                <ProductGrid.MoreProduct.Product>
+                  {products.slice(0, 11).map((product, index) => {
+                    const { frontmatter, excerpt } = product.node
+                    return (
+                      <ProductGrid.MoreProduct.Product.Wrapper>
+                        <Img
+                          fluid={
+                            frontmatter.featuredImage.childImageSharp.fluid
+                          }
+                        />
+                        <ProductGrid.MoreProduct.Product.Detail>
+                          <p>{frontmatter.name}</p>
+                          <p>{excerpt}</p>
+                        </ProductGrid.MoreProduct.Product.Detail>
+                      </ProductGrid.MoreProduct.Product.Wrapper>
+                    )
+                  })}
+                </ProductGrid.MoreProduct.Product>
+                <ProductGrid.MoreProduct.Detail>
+                  DISCOVER OUR PRODUCTS
+                </ProductGrid.MoreProduct.Detail>
+              </ProductGrid.MoreProduct>
+            </Grid>
+          </GridContainer>
+        </div>
+      </div>
     </Layout>
   )
 }
@@ -293,10 +222,13 @@ export const query = graphql`
   query {
     allProduct: allMarkdownRemark(
       filter: { fields: { collection: { eq: "product" } } }
+      sort: { fields: frontmatter___name }
+      limit: 10
     ) {
       edges {
         node {
           id
+          excerpt
           fields {
             collection
             slug
@@ -304,6 +236,11 @@ export const query = graphql`
           frontmatter {
             name
             price
+            vintage
+            size
+            alcohol
+            type
+            grape
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 300) {
@@ -311,8 +248,25 @@ export const query = graphql`
                 }
               }
             }
+            brandImage {
+              childImageSharp {
+                fluid(maxWidth: 1440) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
+      }
+      group(field: frontmatter___brand) {
+        edges {
+          node {
+            frontmatter {
+              name
+            }
+          }
+        }
+        fieldValue
       }
     }
     blog: markdownRemark(fields: { collection: { eq: "blog" } }) {
