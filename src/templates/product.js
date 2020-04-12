@@ -1,16 +1,37 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import { H1 } from '../styles/styled-components/typography'
+import Layout from '../components/layout'
+import Container from '../components/container'
+import { ProductCardWithDetail } from '../components/product-card'
 
 const Product = ({ data }) => {
-  const { product } = data
+  const { excerpt, frontmatter } = data.product
   return (
-    <div>
-      <Img fluid={product.frontmatter.featuredImage.childImageSharp.fluid} />
-      <h1>{product.frontmatter.name}</h1>
-      <H1 tag="h1">Test Typography</H1>
-    </div>
+    <Layout>
+      <div
+        style={{
+          background: `url(${require('../images/bg.png')}) no-repeat`,
+          backgroundSize: 'contain',
+        }}
+      >
+        <div style={{ paddingTop: '100px' }}>
+          <Container>
+            <h1
+              style={{
+                color: '#e1a957',
+                marginBottom: '1em',
+                fontSize: '1.8vw',
+              }}
+            >
+              {frontmatter.name}
+            </h1>
+            <div style={{ height: '40vw', minHeight: '900px' }}>
+              <ProductCardWithDetail excerpt={excerpt} {...frontmatter} />
+            </div>
+          </Container>
+        </div>
+      </div>
+    </Layout>
   )
 }
 
@@ -25,11 +46,18 @@ export const query = graphql`
         collection
         slug
       }
+      excerpt
       frontmatter {
         name
+        price
+        vintage
+        size
+        alcohol
+        type
+        grape
         featuredImage {
           childImageSharp {
-            fluid(maxHeight: 1200) {
+            fluid(maxWidth: 250) {
               ...GatsbyImageSharpFluid
             }
           }

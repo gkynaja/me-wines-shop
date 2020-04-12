@@ -5,68 +5,10 @@ import { fullScreenHeight, flexCenter } from '../common'
 
 const Products = styled.div``
 
-Products.Hero = styled.div`
-  position: relative;
-  display: grid;
-  grid-template-columns: 45% 55%;
-  height: 100vh;
-  max-height: 500px;
-  overflow: hidden;
-  background-color: coral;
-
-  @media (max-width: ${breakpoint.tablet}px) {
-    max-height: 700px;
-    grid-template-columns: 1fr;
-    grid-template-rows: 80% 20%;
-  }
-`
-
-Products.Title = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  width: 100%;
-  text-align: center;
-  line-height: 1.2;
-
-  h1::before,
-  h1::after {
-    content: attr(data-text);
-    display: block;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: white;
-  }
-
-  @media (max-width: ${breakpoint.tablet}px) {
-    top: auto;
-    bottom: 0;
-    transform: none;
-    h1 {
-      font-size: 4rem;
-      line-height: 1;
-    }
-  }
-`
-
-Products.Image = styled.img`
-  width: 100%;
-
-  min-height: 100%;
-  min-width: 1200px;
-
-  @media (max-width: ${breakpoint.tablet}px) {
-    height: 100%;
-    min-width: auto;
-    grid-area: 1;
-  }
-`
-
 Products.Content = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
-  padding: 10rem 0;
+  color: #e1a957;
 
   @media (max-width: ${breakpoint.tablet}px) {
     padding-top: 1rem;
@@ -138,9 +80,10 @@ Products.Filter = styled.div`
 Products.List = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-template-rows: repeat(auto-fit, 400px);
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-row-gap: 3em;
   padding: 4.5rem 1rem 0 1rem;
-  background-color: white;
+  /* background-color: white; */
 
   @media (max-width: ${breakpoint.mobile}px) {
     padding-left: 0;
@@ -153,7 +96,7 @@ Products.List = styled.div`
   }
 `
 Products.List.Wrapper = styled.div`
-  height: 400px;
+  /* height: 400px; */
 
   @media (max-width: ${breakpoint.mobile}px) {
     height: auto;
@@ -165,16 +108,18 @@ Products.Card = styled.div`
   align-items: center;
   justify-self: center;
   padding: 1rem;
+  cursor: pointer;
 
-  background-color: white;
+  /* background-color: white; */
 
-  transition: 0.15s;
+  transition: 0.3s;
 
   &:hover {
-    position: relative;
+    /* position: relative;
     z-index: 1;
 
-    box-shadow: 0 2px 10px darkgrey;
+    box-shadow: 0 2px 10px darkgrey; */
+    background-color: #1a1a1a;
   }
 `
 
@@ -184,7 +129,8 @@ Products.Card.Content = styled.div`
   text-transform: uppercase;
 
   h5 {
-    margin-top: 1rem;
+    margin-top: 2em;
+    word-break: break-word;
   }
 `
 
@@ -194,11 +140,11 @@ Products.Card.Button = styled.div`
 
   border: 1px solid #333;
 
-  display: none;
+  display: block;
 
-  ${Products.Card}:hover & {
+  /* ${Products.Card}:hover & {
     display: block;
-  }
+  } */
 `
 
 export default Products

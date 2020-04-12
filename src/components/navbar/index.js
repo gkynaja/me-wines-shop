@@ -70,7 +70,15 @@ export default () => {
           <FontAwesomeIcon icon={['far', 'search']} />
         </Navbar.Header.Search>
         <Navbar.Header.Logo>
-          <Link to="/">ME WINE</Link>
+          <Link to="/">
+            <img
+              src={require('../../images/logo-woman.png')}
+              alt="Me Wine"
+              width="48"
+              height="48"
+              style={{ verticalAlign: 'middle' }}
+            />
+          </Link>
         </Navbar.Header.Logo>
         <Navbar.Header.Contact>
           <FontAwesomeIcon icon={['fab', 'facebook-square']} title="facebook" />

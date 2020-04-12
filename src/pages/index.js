@@ -159,11 +159,7 @@ const IndexPage = ({ data }) => {
                     >
                       X
                     </label>
-                    <ProductCardWithDetail
-                      excerpt={excerpt}
-                      price={price}
-                      {...frontmatter}
-                    />
+                    <ProductCardWithDetail excerpt={excerpt} {...frontmatter} />
                   </ProductGrid.ProductModal>
                 </GridContainer>
               </>

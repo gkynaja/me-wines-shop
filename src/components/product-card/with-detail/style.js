@@ -10,6 +10,7 @@ ProductCard.Card = styled.div`
   background-color: #222;
 `
 ProductCard.Product = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   background-color: #c79931;
@@ -18,8 +19,37 @@ ProductCard.Product.Wrapper = styled.div`
   width: 250px;
   margin: 0 auto;
 `
+ProductCard.Product.Size = styled.div`
+  position: absolute;
+  color: whitesmoke;
+  font-size: 2rem;
+  font-weight: bold;
+  top: 6vw;
+  right: 2vw;
+  transform: rotate(-90deg);
+`
+ProductCard.Product.Alcohol = styled.div`
+  position: absolute;
+  color: whitesmoke;
+  font-size: 2rem;
+  font-weight: bold;
+  bottom: 3vw;
+  left: 2vw;
+`
+ProductCard.Product.type = styled.div`
+  position: absolute;
+  color: whitesmoke;
+  font-size: 1.2rem;
+  top: 5vw;
+  right: 90%;
+  transform: rotate(-90deg);
+  transform-origin: 100% 0;
+  white-space: nowrap;
+`
 ProductCard.Detail = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
   padding: 0 1vw;
 `
 ProductCard.Detail.Background = styled.div`

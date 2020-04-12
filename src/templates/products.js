@@ -46,69 +46,80 @@ const Products = ({ data }) => {
 
   return (
     <Layout>
-      <StyledProducts>
-        <StyledProducts.Hero>
-          <StyledProducts.Title>
-            <H1 tag="h1" color="white" data-text="Our Wines">
-              Our Wines
-            </H1>
-          </StyledProducts.Title>
-          <div></div>
-          <StyledProducts.Image src={RedWine} />
-        </StyledProducts.Hero>
-        <Container>
-          <StyledProducts.Content>
-            <input type="checkbox" className="hidden" id="trigger-filter" />
-            <StyledProducts.FilterOverlay htmlFor="trigger-filter" />
-            <StyledProducts.Triggerer>
-              <StyledProducts.Triggerer.Filter htmlFor="trigger-filter">
-                <FontAwesomeIcon icon={['fad', 'sliders-h']} />
-                Filter
-              </StyledProducts.Triggerer.Filter>
-              <StyledProducts.Triggerer.Sorting>
-                <FontAwesomeIcon icon={['fad', 'sort-alt']} />
-                Sort
-              </StyledProducts.Triggerer.Sorting>
-            </StyledProducts.Triggerer>
-            <StyledProducts.Filter>
-              <Filter filterConfig={filter} onApply={handleOnApplyFilter} />
-            </StyledProducts.Filter>
-            <StyledProducts.List>
-              {products.map(({ node }) => (
-                <StyledProducts.List.Wrapper>
-                  <StyledProducts.Card>
-                    <Box width="250px">
-                      <Img
-                        fluid={
-                          node.frontmatter.featuredImage.childImageSharp.fluid
-                        }
-                      />
-                    </Box>
-                    <StyledProducts.Card.Content>
-                      <Box height="50px">
-                        <H5 tag="h5">{node.frontmatter.name}</H5>
-                      </Box>
-                      <H5 tag="h5">
-                        {Intl.NumberFormat('th-th', {
-                          style: 'currency',
-                          currency: 'THB',
-                        }).format(node.frontmatter.price)}
-                      </H5>
-                      <Link
-                        to={`/${node.fields.collection}${node.fields.slug}`}
-                      >
-                        <StyledProducts.Card.Button>
-                          Detail
-                        </StyledProducts.Card.Button>
-                      </Link>
-                    </StyledProducts.Card.Content>
-                  </StyledProducts.Card>
-                </StyledProducts.List.Wrapper>
-              ))}
-            </StyledProducts.List>
-          </StyledProducts.Content>
-        </Container>
-      </StyledProducts>
+      <div
+        style={{
+          background: `url(${require('../images/bg.png')}) no-repeat`,
+          backgroundSize: 'contain',
+        }}
+      >
+        <div
+          style={{
+            paddingTop: '200px',
+          }}
+        >
+          <StyledProducts>
+            <Container>
+              <h1
+                style={{
+                  color: '#e1a957',
+                  marginBottom: '1em',
+                  fontSize: '2.5vw',
+                }}
+              >
+                {/* Our Wines */}
+              </h1>
+              <StyledProducts.Content>
+                <input type="checkbox" className="hidden" id="trigger-filter" />
+                <StyledProducts.FilterOverlay htmlFor="trigger-filter" />
+                <StyledProducts.Triggerer>
+                  <StyledProducts.Triggerer.Filter htmlFor="trigger-filter">
+                    <FontAwesomeIcon icon={['fad', 'sliders-h']} />
+                    Filter
+                  </StyledProducts.Triggerer.Filter>
+                  <StyledProducts.Triggerer.Sorting>
+                    <FontAwesomeIcon icon={['fad', 'sort-alt']} />
+                    Sort
+                  </StyledProducts.Triggerer.Sorting>
+                </StyledProducts.Triggerer>
+                <StyledProducts.Filter>
+                  <Filter filterConfig={filter} onApply={handleOnApplyFilter} />
+                </StyledProducts.Filter>
+                <StyledProducts.List>
+                  {products.map(({ node }) => (
+                    <StyledProducts.List.Wrapper>
+                      <StyledProducts.Card>
+                        <Link
+                          to={`/${node.fields.collection}${node.fields.slug}`}
+                        >
+                          <Box width="150px" m={`0 auto`}>
+                            <Img
+                              fluid={
+                                node.frontmatter.featuredImage.childImageSharp
+                                  .fluid
+                              }
+                            />
+                          </Box>
+                          <StyledProducts.Card.Content>
+                            <Box height="80px">
+                              <H5 tag="h5">{node.frontmatter.name}</H5>
+                            </Box>
+                            <H5 tag="h5">
+                              {Intl.NumberFormat('th-th', {
+                                style: 'currency',
+                                currency: 'THB',
+                              }).format(node.frontmatter.price)}
+                            </H5>
+                          </StyledProducts.Card.Content>
+                        </Link>
+                      </StyledProducts.Card>
+                    </StyledProducts.List.Wrapper>
+                  ))}
+                </StyledProducts.List>
+              </StyledProducts.Content>
+            </Container>
+          </StyledProducts>
+        </div>
+      </div>
     </Layout>
   )
 }
@@ -131,6 +142,8 @@ export const query = graphql`
             price
             type
             country
+            brand
+            vintage
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 1200) {
@@ -151,10 +164,10 @@ export const query = graphql`
       country: group(field: frontmatter___country) {
         fieldValue
       }
-      producer: group(field: frontmatter___country) {
+      brand: group(field: frontmatter___brand) {
         fieldValue
       }
-      vintage: group(field: frontmatter___country) {
+      vintage: group(field: frontmatter___vintage) {
         fieldValue
       }
     }

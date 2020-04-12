@@ -7,7 +7,7 @@ const Filter = styled.div`
   padding: 3rem 1rem 0 1rem;
   overflow: scroll;
 
-  background-color: white;
+  /* background-color: white; */
 
   h4 {
     margin-bottom: 1rem;
@@ -26,7 +26,7 @@ Filter.Group = styled.div`
     display: block;
     width: 100%;
 
-    color: lightgrey;
+    color: #777;
 
     cursor: pointer;
 
@@ -41,7 +41,7 @@ Filter.Group = styled.div`
   }
 
   ${Filter.GroupTrigger}:checked ~ label {
-    color: #333;
+    color: #e1a957;
     transition: 0.1s;
   }
   ${Filter.GroupTrigger}:checked ~ label::after {
@@ -59,7 +59,7 @@ Filter.Option = styled.ul`
 
   li {
     padding: 0.5rem 0 0.5rem 0;
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #e1a957; */
   }
   li:first-child {
     margin-top: 0.5rem;
@@ -80,8 +80,8 @@ Filter.Option = styled.ul`
     height: 20px;
     margin-right: 1rem;
     color: #bbb;
-    background-color: white;
-    border: 1px solid lightgrey;
+    background-color: #222;
+    border: 1px solid #e1a957;
     border-radius: 100%;
     vertical-align: top;
     font-weight: bold;
@@ -102,7 +102,7 @@ Filter.Option = styled.ul`
     left: 5px;
     width: 12px;
     height: 12px;
-    background-color: #333;
+    background-color: #e1a957;
     border-radius: 100%;
   }
 `
@@ -110,8 +110,8 @@ Filter.Button = styled.button`
   width: 100%;
   padding: 1rem;
   margin: 3rem 0;
-  border: 1px solid #444;
-  color: #444;
+  border: 1px solid #e1a957;
+  color: #e1a957;
   background-color: transparent;
   font-weight: bold;
 `
@@ -149,9 +149,14 @@ export default ({ filterConfig, onApply }) => {
                   onChange={onChange(k, v)}
                   id={v.fieldValue}
                 />
-                <P tag="label" htmlFor={v.fieldValue}>{`${toCapitalize(
-                  v.fieldValue
-                )}`}</P>
+                <P tag="label" htmlFor={v.fieldValue}>
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      width: 'calc(100% - 2.4rem)',
+                    }}
+                  >{`${toCapitalize(v.fieldValue)}`}</span>
+                </P>
               </li>
             ))}
           </Filter.Option>

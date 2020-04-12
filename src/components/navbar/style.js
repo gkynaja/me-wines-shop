@@ -41,7 +41,7 @@ Navbar.Nav = styled.nav`
       display: none;
     }
   }
-  li:not(:first-child):hover {
+  /* li:not(:first-child):hover {
     background-color: whitesmoke;
     font-size: 2rem;
     text-align: center;
@@ -55,7 +55,7 @@ Navbar.Nav = styled.nav`
     svg {
       display: block;
     }
-  }
+  } */
   li:first-child {
     padding-left: 1rem;
     padding-bottom: 3rem;

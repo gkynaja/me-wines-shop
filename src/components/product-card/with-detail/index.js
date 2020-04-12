@@ -10,6 +10,8 @@ export default ({
   grape,
   excerpt,
   price,
+  size,
+  alcohol,
 }) => {
   return (
     <ProductCard.Card>
@@ -17,6 +19,11 @@ export default ({
         <ProductCard.Product.Wrapper>
           <Img fluid={featuredImage.childImageSharp.fluid} />
         </ProductCard.Product.Wrapper>
+        <ProductCard.Product.Size>{size}</ProductCard.Product.Size>
+        <ProductCard.Product.Alcohol>
+          <span style={{ fontSize: '0.5em' }}>Alc.</span> {alcohol}%
+        </ProductCard.Product.Alcohol>
+        <ProductCard.Product.type>{type}</ProductCard.Product.type>
       </ProductCard.Product>
       <ProductCard.Detail>
         <ProductCard.Detail.Background />
