@@ -17,8 +17,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #222;
   line-height: 1.5;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 body.modal-active {
   overflow: hidden;

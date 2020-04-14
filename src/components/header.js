@@ -82,7 +82,10 @@ const Header = () => {
       <NavbarGroup>
         <div>
           <Link to="/">
-            <img src={require('../images/logo-woman.png')} alt="logo" />
+            <img
+              src={require('../images/logo-woman-secondary.png')}
+              alt="logo"
+            />
           </Link>
         </div>
         <div>

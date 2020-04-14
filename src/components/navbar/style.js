@@ -2,12 +2,15 @@ import styled from 'styled-components'
 import { breakpoint } from '../../styles/styled-components/config/breakpoint'
 
 const Navbar = styled.div`
-  position: absolute;
+  /* position: absolute; */
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 70px;
   color: white;
-  /* background-color: #222; */
-  background-color: transparent;
+  background-color: #222;
+  /* background-color: transparent; */
+  z-index: 999;
 `
 Navbar.Nav = styled.nav`
   position: fixed;

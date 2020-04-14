@@ -3,9 +3,10 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Container from '../components/container'
 import { ProductCardWithDetail } from '../components/product-card'
+import Breadcrumb from '../components/breadcrumb'
 
 const Product = ({ data }) => {
-  const { excerpt, frontmatter } = data.product
+  const { excerpt, frontmatter, fields } = data.product
   return (
     <Layout>
       <div
@@ -14,9 +15,20 @@ const Product = ({ data }) => {
           backgroundSize: 'contain',
         }}
       >
-        <div style={{ paddingTop: '100px' }}>
+        <div style={{ paddingTop: '200px' }}>
           <Container>
-            <h1
+            <Breadcrumb
+              list={[
+                { text: 'Home', link: '/', active: false },
+                { text: 'Wines', link: '/products', active: false },
+                {
+                  text: frontmatter.name,
+                  link: `/${fields.collection}${fields.slag}`,
+                  active: true,
+                },
+              ]}
+            />
+            {/* <h1
               style={{
                 color: '#e1a957',
                 marginBottom: '1em',
@@ -24,7 +36,7 @@ const Product = ({ data }) => {
               }}
             >
               {frontmatter.name}
-            </h1>
+            </h1> */}
             <div style={{ height: '40vw', minHeight: '900px' }}>
               <ProductCardWithDetail excerpt={excerpt} {...frontmatter} />
             </div>

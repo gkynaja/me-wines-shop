@@ -9,6 +9,7 @@ import StyledProducts from '../styles/styled-components/products'
 import { H1, H4, H5 } from '../styles/styled-components/typography'
 import RedWine from '../images/hero-1.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Breadcrumb from '../components/breadcrumb'
 
 const buildFilterConfig = config => {
   const filterConfig = {}
@@ -59,15 +60,12 @@ const Products = ({ data }) => {
         >
           <StyledProducts>
             <Container>
-              <h1
-                style={{
-                  color: '#e1a957',
-                  marginBottom: '1em',
-                  fontSize: '2.5vw',
-                }}
-              >
-                {/* Our Wines */}
-              </h1>
+              <Breadcrumb
+                list={[
+                  { text: 'Home', link: '/', active: false },
+                  { text: 'Wines', link: '/products', active: true },
+                ]}
+              />
               <StyledProducts.Content>
                 <input type="checkbox" className="hidden" id="trigger-filter" />
                 <StyledProducts.FilterOverlay htmlFor="trigger-filter" />

@@ -7,6 +7,31 @@ import { CustomerChat } from '../components/chat'
 import { Container as GridContainer, Grid } from '../components/grid'
 import { ProductGrid } from '../components/product-grid'
 import { ProductCardWithDetail } from '../components/product-card'
+import Container from '../components/container'
+import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const Hero = styled.section`
+  height: 100vh;
+  /* perspective: 1px;
+  overflow-x: hidden;
+  overflow-y: auto; */
+  /* max-height: 700px; */
+  position: relative;
+  transform-style: preserve-3d;
+`
+Hero.GridContainer = styled.div`
+  position: absolute;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 75% 20% 5%;
+  grid-template-areas: 'header header' 'action sub' '. social';
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  transform: translateZ(100px) scale(0.67);
+  transform-origin: 50% 50%;
+`
 
 const IndexPage = ({ data }) => {
   const products = data.allProduct.edges
@@ -35,15 +60,91 @@ const IndexPage = ({ data }) => {
       <SEO title="Home" />
       <CustomerChat />
       <div
+        // style={{
+        //   background: `url(${require('../images/bg.png')}) no-repeat`,
+        //   backgroundSize: 'contain',
+        // }}
         style={{
-          background: `url(${require('../images/bg.png')}) no-repeat`,
-          backgroundSize: 'contain',
+          perspective: '300px',
+          overflowX: 'hidden',
+          overflowY: 'auto',
+          perspectiveOrigin: '50% 90%',
+          height: '100vh',
         }}
       >
         <img
           src={require('../images/wine-hand.png')}
           style={{ position: 'absolute', top: '4720px', left: 0 }}
         />
+
+        <Hero>
+          <Container>
+            <img
+              src={require('../images/grape-filter.png')}
+              style={{
+                position: 'absolute',
+                top: '0',
+                left: '50%',
+                transform: 'translateX(-50%)',
+              }}
+            />
+            <Hero.GridContainer>
+              <div
+                style={{
+                  padding: '1rem',
+                  gridArea: 'header',
+                  display: 'flex',
+                  flexFlow: 'column',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <span
+                  style={{
+                    display: 'block',
+                    fontSize: '3.25em',
+                    fontWeight: 'bold',
+                    color: 'white',
+                  }}
+                >
+                  Welcome
+                </span>
+                <span
+                  style={{
+                    display: 'block',
+                    fontSize: '3.25em',
+                    fontWeight: 'bold',
+                    color: 'white',
+                  }}
+                >
+                  to
+                </span>
+                <span
+                  style={{
+                    display: 'block',
+                    fontSize: '7em',
+                    fontWeight: 'bold',
+                    color: '#e1a957',
+                    lineHeight: '1',
+                  }}
+                >
+                  ME WINES
+                </span>
+              </div>
+              <div
+                style={{ gridArea: 'sub', fontSize: '1.5em', color: '#909090' }}
+              >
+                Wine shop & bar in Silom, where you can find best wines from all
+                over the world. Join us for a glass of wine & some bites. Or
+                come by and stock your cellar
+              </div>
+              <div style={{ gridArea: 'social' }}>
+                <FontAwesomeIcon icon={['fab', 'facebook']} />
+                <FontAwesomeIcon icon={['fab', 'instagram']} />
+              </div>
+            </Hero.GridContainer>
+          </Container>
+        </Hero>
+
         <div
           style={{
             paddingTop: '340px',

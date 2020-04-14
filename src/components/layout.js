@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import { Navbar } from '.'
-import Header from './header'
 import Footer from './footer'
 
 const Layout = ({ children }) => {
@@ -20,13 +19,12 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
+
       <div
-      // style={{
-      //   margin: `0 auto`,
-      //   maxWidth: 960,
-      //   padding: `0 1.0875rem 1.45rem`,
-      // }}
+        style={{
+          background: `url(${require('../images/bg.png')}) no-repeat`,
+          backgroundSize: 'contain',
+        }}
       >
         <main>{children}</main>
       </div>
