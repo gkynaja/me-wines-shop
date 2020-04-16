@@ -8,10 +8,3 @@ import { fal } from '@fortawesome/pro-light-svg-icons'
 import { fad } from '@fortawesome/pro-duotone-svg-icons'
 
 library.add(fas, far, fab, ProFas, ProFar, fal, fad)
-
-require('typeface-roboto')
-require('typeface-laila')
-require('typeface-love-ya-like-a-sister')
-require('typeface-montserrat')
-require('normalize.css')
-require('./src/styles/global.css')

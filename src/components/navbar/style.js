@@ -102,8 +102,7 @@ Navbar.Header.Menu = styled.label`
   line-height: 4.375;
   text-align: center;
 
-  svg:not(:last-of-type),
-  svg:first-child:not(:last-child) {
+  svg:not(:last-of-type) {
     margin-right: 0.8rem;
   }
 

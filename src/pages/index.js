@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
-import Layout from '../components/layout'
+import Layout from '../layout/'
 import SEO from '../components/seo'
 import { CustomerChat } from '../components/chat'
 import { Container as GridContainer, Grid } from '../components/grid'
@@ -54,12 +54,126 @@ const IndexPage = ({ data }) => {
       body.className = classes.join(' ')
     }
   }
+  const handler = () => {
+    setScrollY(window.scrollY)
+  }
+
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    window.addEventListener('scroll', handler)
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
+
+  console.log(scrollY)
 
   return (
     <Layout>
       <SEO title="Home" />
-      <CustomerChat />
       <div
+        style={{
+          position: 'relative',
+          width: '50%',
+          top: '0',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            width: '100%',
+            transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
+              -1 *
+              1.5},0,1)`,
+            willChange: 'transform',
+            paddingTop: '146%',
+          }}
+        >
+          <img
+            className="grape"
+            src={require('../images/grape-filter-shadow.png')}
+          />
+        </div>
+      </div>
+      <section
+        id="hero__section"
+        style={
+          {
+            // transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY * -1},0,1)`,
+          }
+        }
+      >
+        {/* <div
+          style={{
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+            transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
+              -1 *
+              1.5},0,1)`,
+            willChange: 'transform',
+          }}
+        >
+          <div>
+            <img
+              className="grape"
+              src={require('../images/grape-filter-shadow.png')}
+            />
+          </div>
+        </div> */}
+
+        <div className="hero__grid-container">
+          <div
+            className="hero__grid__header"
+            style={
+              {
+                // transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
+                //   -1 *
+                //   1},0,1)`,
+                // willChange: 'transform',
+              }
+            }
+          >
+            <h4>
+              <span>Welcome</span>
+              <span>to</span>
+            </h4>
+            <h2>
+              <span>ME</span>
+              <span>WINES</span>
+            </h2>
+          </div>
+          <div
+            className="hero__grid__sub"
+            style={{
+              transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
+                -1 *
+                0.6},0,1)`,
+              willChange: 'transform',
+            }}
+          >
+            <p>
+              Wine shop & bar in Silom, where you can find best wines from all
+              over the world. Join us for a glass of wine & some bites. Or come
+              by and stock your cellar
+            </p>
+          </div>
+          <div className="hero__grid__social">
+            <FontAwesomeIcon icon={['fab', 'facebook']} />
+            <FontAwesomeIcon icon={['fab', 'instagram']} />
+          </div>
+        </div>
+      </section>
+
+      <div style={{ height: '2000px' }}></div>
+
+      {/* <CustomerChat /> */}
+      {/* <div
         // style={{
         //   background: `url(${require('../images/bg.png')}) no-repeat`,
         //   backgroundSize: 'contain',
@@ -308,7 +422,7 @@ const IndexPage = ({ data }) => {
             </Grid>
           </GridContainer>
         </div>
-      </div>
+      </div> */}
     </Layout>
   )
 }

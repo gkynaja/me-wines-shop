@@ -1,0 +1,56 @@
+/* Variables
+ * ===============
+ *
+ * All variables and most of the configuration is defined on this page. */
+
+/* Containers */
+
+$x-small: 720px;
+$small: 800px;
+$medium: 1200px;
+$large: 1300px;
+
+$navigator-height: 70px;
+
+/* Breakpoints */
+
+$mobile: 620px;
+$tablet: $small;
+$desktop: $medium;
+
+/* Colors */
+$background-primary: #222;
+
+$font-primary: #e1a957;
+$font-secondary: #909090;
+$font-white: white;
+
+$modal-overlay: rgba(0,0,0,0.5);
+
+/* Typhography */
+$font-family: 'Montserrat', 'Roboto', -apple-system, BlinkMacSystemFont, Helvetica, Arial,
+sans-serif;
+$heading-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Helvetica, Arial,
+sans-serif;
+$line-height: 1.5;
+
+$h1: 7.6em;
+$h2: 5em; 
+$h3: 3.38em;
+$h4: 2.25em;
+$h5: 1.5em;
+$p: 1em;
+
+/* Padding */
+$padding-s: .5em;
+$padding-m: 1em;
+$padding-l: 2em;
+
+/* space */
+$space-s: 8px;
+$space-m: 16px;
+$space-l: 32px;
+
+/* Z-Index */
+$z-modal: 9999;
+$z-nav: 999;

@@ -1,0 +1,15 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $modal-overlay;
+  z-index: $z-modal;
+
+  .content {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+  }
+}
