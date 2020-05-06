@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import Layout from '../layout/'
@@ -10,28 +10,33 @@ import { ProductCardWithDetail } from '../components/product-card'
 import Container from '../components/container'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import SubscribeScrollingDiv from '../components/subscribeScrollingDiv'
+import { motion, useViewportScroll } from 'framer-motion'
+import Hero from '../components/hero'
+import Product from '../components/product'
+import Map from '../components/map'
 
-const Hero = styled.section`
-  height: 100vh;
-  /* perspective: 1px;
-  overflow-x: hidden;
-  overflow-y: auto; */
-  /* max-height: 700px; */
-  position: relative;
-  transform-style: preserve-3d;
-`
-Hero.GridContainer = styled.div`
-  position: absolute;
-  display: grid;
-  grid-template-columns: 60% 40%;
-  grid-template-rows: 75% 20% 5%;
-  grid-template-areas: 'header header' 'action sub' '. social';
-  height: 100%;
-  z-index: 1;
-  top: 0;
-  transform: translateZ(100px) scale(0.67);
-  transform-origin: 50% 50%;
-`
+// const Hero = styled.section`
+//   height: 100vh;
+//   /* perspective: 1px;
+//   overflow-x: hidden;
+//   overflow-y: auto; */
+//   /* max-height: 700px; */
+//   position: relative;
+//   transform-style: preserve-3d;
+// `
+// Hero.GridContainer = styled.div`
+//   position: absolute;
+//   display: grid;
+//   grid-template-columns: 60% 40%;
+//   grid-template-rows: 75% 20% 5%;
+//   grid-template-areas: 'header header' 'action sub' '. social';
+//   height: 100%;
+//   z-index: 1;
+//   top: 0;
+//   transform: translateZ(100px) scale(0.67);
+//   transform-origin: 50% 50%;
+// `
 
 const IndexPage = ({ data }) => {
   const products = data.allProduct.edges
@@ -54,6 +59,7 @@ const IndexPage = ({ data }) => {
       body.className = classes.join(' ')
     }
   }
+
   const handler = () => {
     setScrollY(window.scrollY)
   }
@@ -65,112 +71,13 @@ const IndexPage = ({ data }) => {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  console.log(scrollY)
-
   return (
     <Layout>
       <SEO title="Home" />
-      <div
-        style={{
-          position: 'relative',
-          width: '50%',
-          top: '0',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            width: '100%',
-            transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
-              -1 *
-              1.5},0,1)`,
-            willChange: 'transform',
-            paddingTop: '146%',
-          }}
-        >
-          <img
-            className="grape"
-            src={require('../images/grape-filter-shadow.png')}
-          />
-        </div>
-      </div>
-      <section
-        id="hero__section"
-        style={
-          {
-            // transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY * -1},0,1)`,
-          }
-        }
-      >
-        {/* <div
-          style={{
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            width: '100%',
-            height: '100%',
-            transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
-              -1 *
-              1.5},0,1)`,
-            willChange: 'transform',
-          }}
-        >
-          <div>
-            <img
-              className="grape"
-              src={require('../images/grape-filter-shadow.png')}
-            />
-          </div>
-        </div> */}
 
-        <div className="hero__grid-container">
-          <div
-            className="hero__grid__header"
-            style={
-              {
-                // transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
-                //   -1 *
-                //   1},0,1)`,
-                // willChange: 'transform',
-              }
-            }
-          >
-            <h4>
-              <span>Welcome</span>
-              <span>to</span>
-            </h4>
-            <h2>
-              <span>ME</span>
-              <span>WINES</span>
-            </h2>
-          </div>
-          <div
-            className="hero__grid__sub"
-            style={{
-              transform: `matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,${scrollY *
-                -1 *
-                0.6},0,1)`,
-              willChange: 'transform',
-            }}
-          >
-            <p>
-              Wine shop & bar in Silom, where you can find best wines from all
-              over the world. Join us for a glass of wine & some bites. Or come
-              by and stock your cellar
-            </p>
-          </div>
-          <div className="hero__grid__social">
-            <FontAwesomeIcon icon={['fab', 'facebook']} />
-            <FontAwesomeIcon icon={['fab', 'instagram']} />
-          </div>
-        </div>
-      </section>
-
-      <div style={{ height: '2000px' }}></div>
+      <Hero />
+      <Product products={products} />
+      <Map />
 
       {/* <CustomerChat /> */}
       {/* <div

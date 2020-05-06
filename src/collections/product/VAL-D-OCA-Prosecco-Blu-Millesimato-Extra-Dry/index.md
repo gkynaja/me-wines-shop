@@ -8,8 +8,8 @@ type: 'Sparkling / Prosecco'
 grape: 'Glera'
 size: '750ml'
 alcohol: 11
-price: 3000
-featuredImage: './wine.png'
+price: 4000
+featuredImage: './wine-shadow.png'
 brandImage: './brand.png'
 ---
 

@@ -9,7 +9,7 @@ grape: 'Moscato'
 size: '750ml'
 alcohol: 7
 price: 3000
-featuredImage: './wine.png'
+featuredImage: './wine-shadow.png'
 brandImage: './brand.png'
 ---
 

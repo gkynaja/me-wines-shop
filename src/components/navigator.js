@@ -2,27 +2,31 @@ import React, { useState } from 'react'
 import { Link } from 'gatsby'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Modal from './modal'
+import { Nav, SideMenu } from '../styles/components/NavigatorStyles'
 
 const Navigator = () => {
   const [openModal, setOpenModal] = useState(false)
 
   return (
     <>
-      <nav className="nav">
-        <div className="nav__menu interact" onClick={() => setOpenModal(true)}>
+      <Nav>
+        <div onClick={() => setOpenModal(true)}>
           <FontAwesomeIcon icon={['fas', 'bars']} />
           <span>Menu</span>
         </div>
-        <div className="nav__logo"></div>
-        <div className="nav__search interact">
+        <div></div>
+        <div>
           <FontAwesomeIcon icon={['far', 'search']} />
         </div>
-      </nav>
+      </Nav>
 
       <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-        <aside className={`nav--sidemenu ${openModal ? `animated` : ''}`}>
+        <SideMenu
+          className={`${openModal ? `animated` : ''}`}
+          active={openModal}
+        >
           <h5>Menu</h5>
-          <ul className="interact">
+          <ul>
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -42,7 +46,7 @@ const Navigator = () => {
               <Link to="/">Contact Us</Link>
             </li>
           </ul>
-        </aside>
+        </SideMenu>
       </Modal>
     </>
   )

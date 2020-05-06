@@ -7,7 +7,7 @@ import Box from './box'
 import Filter from './filter'
 import StyledProducts from '../styles/styled-components/products'
 import { H1, H4, H5 } from '../styles/styled-components/typography'
-import RedWine from '../images/red-wine.jpg'
+// import RedWine from '../images/red-wine.jpg'
 
 const Products = ({ products }) => {
   return (
@@ -26,7 +26,7 @@ const Products = ({ products }) => {
               </H1>
             </StyledProducts.Title>
             <div></div>
-            <StyledProducts.Image src={RedWine} />
+            {/* <StyledProducts.Image src={RedWine} /> */}
           </StyledProducts.Hero>
           <Container>
             <StyledProducts.Content>

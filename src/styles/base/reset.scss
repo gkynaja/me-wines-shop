@@ -1,4 +1,3 @@
-
 /* Reset
   =============== */
 
@@ -19,4 +18,22 @@ html {
 figure,
 body {
   margin: 0;
+}
+
+a,
+a:active,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  border: none;
+  background: none;
+  outline: none;
+  font: inherit;
 }

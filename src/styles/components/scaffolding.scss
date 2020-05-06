@@ -1,0 +1,72 @@
+html {
+  font-family: $font-family;
+  line-height: $line-height;
+}
+
+body {
+  background-color: $background-primary;
+  // calc([min size] + ([max size] - [min size]) * ((100vw - [min viewport]) / ([max viewport] - [min viewport])));
+  font-size: calc(12px + (20 - 12) * ((100vw - 320px) / (1440 - 320)));
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: bold;
+}
+h1 {
+  font-size: $h1;
+}
+h2 {
+  font-size: $h2;
+}
+h3 {
+  font-size: $h3;
+}
+h4 {
+  font-size: $h4;
+}
+h5 {
+  font-size: $h5;
+}
+h6 {
+  font-size: $p;
+}
+p {
+  font-size: $p;
+}
+
+ul {
+  list-style: none;
+}
+
+svg:not(:last-child) {
+  margin-right: $padding-s;
+}
+
+.button--round {
+  position: relative;
+  color: $font-primary;
+  padding: 0.5em 1em;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 70%;
+    border-radius: 2em;
+    background-color: #2c2c2c;
+    transition: 0.3s;
+    z-index: -1;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}

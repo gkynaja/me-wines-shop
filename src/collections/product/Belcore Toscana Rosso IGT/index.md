@@ -9,7 +9,7 @@ grape: '80% Sangiovese, 20% Merlot'
 size: '750ml'
 alcohol: 14.5
 price: 3000
-featuredImage: './wine.png'
+featuredImage: './wine-shadow.png'
 brandImage: './brand.jpg'
 ---
 

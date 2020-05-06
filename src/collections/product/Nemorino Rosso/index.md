@@ -9,7 +9,7 @@ grape: 'Syrah (about 60%), Merlot, Cabernet Franc, Alicante'
 size: '750ml'
 alcohol: 14
 price: 3000
-featuredImage: './wine.png'
+featuredImage: './wine-shadow.png'
 brandImage: './brand.png'
 ---
 

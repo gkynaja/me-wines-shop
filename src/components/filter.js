@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useRef, useCallback } from 'react'
 import styled from 'styled-components'
 import { H4, H5, P } from '../styles/styled-components/typography'
+import Slider from './rangeSlider'
 
 const Filter = styled.div`
   height: 100%;
@@ -64,7 +65,7 @@ Filter.Option = styled.ul`
   li:first-child {
     margin-top: 0.5rem;
   }
-  input {
+  input[type='checkbox'] {
     display: none;
   }
   label {
@@ -115,54 +116,98 @@ Filter.Button = styled.button`
   background-color: transparent;
   font-weight: bold;
 `
+Filter.SliderWrapper = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  padding: 1em 0;
+`
 
 const toCapitalize = str =>
   str.replace(str.substring(0, 1), str.substring(0, 1).toUpperCase())
 
 export default ({ filterConfig, onApply }) => {
   const newFilter = { ...filterConfig }
-  const onChange = (group, option) => {
-    return e => {
-      newFilter[group] = newFilter[group].map(v => {
-        if (v.fieldValue === option.fieldValue) {
-          return { ...v, checked: e.target.checked }
-        }
-        return v
-      })
-    }
-  }
+  console.log('render', newFilter)
 
+  const onChange = useCallback((group, option) => {
+    return e => {
+      newFilter[group] = {
+        ...newFilter[group],
+        value: newFilter[group].value.map(v => {
+          if (v.fieldValue === option.fieldValue) {
+            return { ...v, checked: e.target.checked }
+          }
+          return v
+        }),
+      }
+      console.log('change', newFilter)
+    }
+  }, [])
+
+  const handleSliderOnMove = useCallback((child, motion) => {
+    console.log('move', newFilter)
+    //Temporary to find range type filter bcz still cannot know group
+    Object.keys(newFilter).forEach(key => {
+      if (newFilter[key].type === 'range') {
+        newFilter[key].value[child] = { fieldValue: motion.value }
+      }
+    })
+
+    // onApply(newFilter)()
+  }, [])
+
+  const onApplyFilter = useCallback(onApply(newFilter), [])
+
+  console.log('filter render')
   return (
     <Filter>
       <H4 tag="h4">Filters</H4>
-      {Object.keys(filterConfig).map(k => (
-        <Filter.Group>
-          <Filter.GroupTrigger id={k} defaultChecked={true} />
-          <H5 tag="label" htmlFor={k}>
-            {toCapitalize(k)}
-          </H5>
-          <Filter.Option>
-            {filterConfig[k].map(v => (
-              <li>
-                <input
-                  type="checkbox"
-                  onChange={onChange(k, v)}
-                  id={v.fieldValue}
-                />
-                <P tag="label" htmlFor={v.fieldValue}>
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      width: 'calc(100% - 2.4rem)',
-                    }}
-                  >{`${toCapitalize(v.fieldValue)}`}</span>
-                </P>
-              </li>
-            ))}
-          </Filter.Option>
-        </Filter.Group>
-      ))}
-      <Filter.Button onClick={onApply(newFilter)}>Filter</Filter.Button>
+      {Object.keys(newFilter).map(k => {
+        return (
+          <Filter.Group>
+            <Filter.GroupTrigger id={k} defaultChecked={true} />
+            <H5 tag="label" htmlFor={k}>
+              {toCapitalize(k)}
+            </H5>
+            <Filter.Option>
+              {newFilter[k].type === 'value' ? (
+                newFilter[k].value.map(v => (
+                  <li>
+                    <input
+                      type="checkbox"
+                      onChange={onChange(k, v)}
+                      id={v.fieldValue}
+                    />
+                    <P tag="label" htmlFor={v.fieldValue}>
+                      <span
+                        style={{
+                          display: 'inline-block',
+                          width: 'calc(100% - 2.4rem)',
+                        }}
+                      >{`${toCapitalize(v.fieldValue)}`}</span>
+                    </P>
+                  </li>
+                ))
+              ) : (
+                <Filter.SliderWrapper>
+                  <Slider
+                    sliderMin={newFilter[k].range[0]}
+                    sliderMax={newFilter[k].range[1]}
+                    value={[
+                      newFilter[k].value[0].fieldValue,
+                      newFilter[k].value[1].fieldValue,
+                    ]}
+                    scale={4}
+                    onMove={handleSliderOnMove}
+                  />
+                </Filter.SliderWrapper>
+              )}
+            </Filter.Option>
+          </Filter.Group>
+        )
+      })}
+
+      <Filter.Button onClick={onApplyFilter}>Filter</Filter.Button>
     </Filter>
   )
 }

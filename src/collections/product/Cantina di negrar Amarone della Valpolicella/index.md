@@ -9,7 +9,7 @@ grape: '70% Corvina,15% Corvinone,15% Rondinella'
 size: '750ml'
 alcohol: 15.5
 price: 3000
-featuredImage: './wine.png'
+featuredImage: './wine-shadow.png'
 brandImage: './brand.jpg'
 ---
 

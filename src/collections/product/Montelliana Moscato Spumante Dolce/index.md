@@ -8,8 +8,8 @@ type: 'Sparkling / Prosecco'
 grape: 'Moscato'
 size: '750ml'
 alcohol: 7
-price: 3000
-featuredImage: './wine.png'
+price: 2500
+featuredImage: './wine-shadow.png'
 brandImage: './brand.jpg'
 ---
 

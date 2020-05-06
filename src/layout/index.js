@@ -1,5 +1,6 @@
 import React from 'react'
 import Navigator from '../components/navigator'
+import Footer from '../components/footer'
 import '../styles/main.scss'
 
 const Layout = ({ children }) => {
@@ -7,6 +8,7 @@ const Layout = ({ children }) => {
     <>
       <Navigator />
       <main>{children}</main>
+      <Footer />
     </>
   )
 }
